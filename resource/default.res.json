@@ -1,0 +1,75 @@
+{
+	"groups": [
+		{
+			"keys": "bg_jpg,egret_icon_png,description_json,unity_png,page01_jpg,page02_jpg,earth_png,earth02_png,page01bj_jpg,water_png,jupiter_png,March_png,page02bj_jpg",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "bg_jpg",
+			"type": "image",
+			"url": "assets/bg.jpg"
+		},
+		{
+			"name": "egret_icon_png",
+			"type": "image",
+			"url": "assets/egret_icon.png"
+		},
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "unity_png",
+			"type": "image",
+			"url": "assets/unity.png"
+		},
+		{
+			"name": "page01_jpg",
+			"type": "image",
+			"url": "assets/page01.jpg"
+		},
+		{
+			"name": "page02_jpg",
+			"type": "image",
+			"url": "assets/page02.jpg"
+		},
+		{
+			"name": "earth_png",
+			"type": "image",
+			"url": "assets/earth.png"
+		},
+		{
+			"name": "earth02_png",
+			"type": "image",
+			"url": "assets/earth02.png"
+		},
+		{
+			"name": "page01bj_jpg",
+			"type": "image",
+			"url": "assets/page01bj.jpg"
+		},
+		{
+			"name": "water_png",
+			"type": "image",
+			"url": "assets/water.png"
+		},
+		{
+			"name": "jupiter_png",
+			"type": "image",
+			"url": "assets/jupiter.png"
+		},
+		{
+			"name": "March_png",
+			"type": "image",
+			"url": "assets/March.png"
+		},
+		{
+			"name": "page02bj_jpg",
+			"type": "image",
+			"url": "assets/page02bj.jpg"
+		}
+	]
+}
