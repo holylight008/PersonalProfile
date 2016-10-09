@@ -97,26 +97,30 @@ var Main = (function (_super) {
         }
     };
     p.createGameScene = function () {
+        var stageW = this.stage.stageWidth;
+        var stageH = this.stage.stageHeight;
         var currentY = 0;
         var beginY = 0;
         var currentPage = 0;
-        var stageW = this.stage.stageWidth;
-        var stageH = this.stage.stageHeight;
-        var page01 = new egret.DisplayObjectContainer();
-        page01.x = 0;
-        page01.y = 0;
-        page01.width = stageW;
-        page01.height = stageH;
-        this.addChild(page01);
-        var page02 = new egret.DisplayObjectContainer();
-        page02.x = 0;
-        page02.y = page01.y + stageH;
-        page02.width = stageW;
-        page02.height = stageH;
-        this.addChild(page02);
-        var pageArray = [page01, page02];
-        ////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
+        var p1 = new page01();
+        p1.x = 0;
+        p1.y = 0;
+        p1.width = stageW;
+        p1.height = stageH;
+        this.p1_animator = p1;
+        this.addChild(p1);
+        p1.draw();
+        var p2 = new page02();
+        p2.x = 0;
+        p2.y = stageH;
+        p2.width = stageW;
+        p2.height = stageH;
+        this.p2_animator = p2;
+        this.addChild(p2);
+        p2.draw();
+        var pageArray = [p1, p2];
+        /////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////
         this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (evt) {
             beginY = evt.stageY;
         }, this);
@@ -169,96 +173,14 @@ var Main = (function (_super) {
             }
             console.log(currentPage);
         }, this);
-        ///////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////
-        var bj01 = this.createBitmapByName("page01bj_jpg");
-        bj01.x = 0;
-        bj01.y = 0;
-        page01.addChild(bj01);
-        var earth = this.createBitmapByName("earth_png");
-        earth.x = 0;
-        earth.y = 0;
-        page01.addChild(earth);
-        this.picture01 = earth;
-        var earth02 = this.createBitmapByName("earth02_png");
-        earth02.x = 0;
-        earth02.y = 0;
-        earth02.alpha = 1;
-        page01.addChild(earth02);
-        this.picture02 = earth02;
-        ////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////
-        var sky2 = this.createBitmapByName("page02bj_jpg");
-        page02.addChild(sky2);
-        sky2.x = 0;
-        sky2.y = 0;
-        sky2.width = stageW;
-        sky2.height = stageH;
-        var march = this.createBitmapByName("March_png");
-        page02.addChild(march);
-        march.anchorOffsetX = march.width / 2;
-        march.anchorOffsetY = march.height / 2;
-        march.x = 245 + march.width / 2;
-        march.y = -165 + march.height / 2;
-        this.picture_march = march;
-        var jupiter = this.createBitmapByName("jupiter_png");
-        page02.addChild(jupiter);
-        jupiter.anchorOffsetX = jupiter.width / 2;
-        jupiter.anchorOffsetY = jupiter.height / 2;
-        jupiter.x = 150 + jupiter.width / 2;
-        jupiter.y = 365 + jupiter.height / 2;
-        this.picture_jupiter = jupiter;
-        var water = this.createBitmapByName("water_png");
-        page02.addChild(water);
-        water.anchorOffsetX = water.width / 2;
-        water.anchorOffsetY = water.height / 2;
-        water.x = 35 + water.width / 2;
-        water.y = 600 + water.height / 2;
-        this.picture_water = water;
-        //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
-        // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
+        //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
         RES.getResAsync("description_json", this.startAnimation, this);
     };
-    /**
-     * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
-     * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
-     */
-    p.createBitmapByName = function (name) {
-        var result = new egret.Bitmap();
-        var texture = RES.getRes(name);
-        result.texture = texture;
-        return result;
-    };
-    /**
-     * 描述文件加载成功，开始播放动画
-     * Description file loading is successful, start to play the animation
-     */
     p.startAnimation = function (result) {
         var self = this;
-        var change = function () {
-            var tw = egret.Tween.get(self.picture01);
-            var tw2 = egret.Tween.get(self.picture02);
-            tw.to({ "alpha": 1 }, 3000);
-            tw2.to({ "alpha": 0 }, 3000);
-            tw.wait(3000);
-            tw2.wait(3000);
-            tw.to({ "alpha": 0 }, 3000);
-            tw2.to({ "alpha": 1 }, 3000);
-            tw.wait(3000);
-            tw2.wait(3000);
-            tw.call(change, self);
-        };
-        var zizhuan = function () {
-            var tw_jupiter = egret.Tween.get(self.picture_jupiter);
-            var tw_march = egret.Tween.get(self.picture_march);
-            var tw_water = egret.Tween.get(self.picture_water);
-            tw_jupiter.to({ rotation: 360 }, 20000);
-            tw_march.to({ rotation: 360 }, 100000);
-            tw_water.to({ rotation: 360 }, 5000);
-            tw_water.call(zizhuan, self);
-        };
-        change();
-        zizhuan();
+        self.p1_animator.change();
+        self.p2_animator.change();
     };
     return Main;
 }(egret.DisplayObjectContainer));
